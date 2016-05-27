@@ -14,6 +14,7 @@
             "email": "dev@restruct.nl"
         }
     ],
+    "license": "MIT",
     "require": {
         "silverstripe-australia/gridfieldextensions": "~1.0"
     },
