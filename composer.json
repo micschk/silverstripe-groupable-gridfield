@@ -1,0 +1,26 @@
+{
+    "name": "micschk/silverstripe-groupable-gridfield",
+    "description": "This module allows drag & drop grouping of items in a GridField",
+    "type": "silverstripe-module",
+    "keywords": [
+        "silverstripe",
+        "gridfield",
+        "groups"
+    ],
+    "homepage": "http://github.com/micschk/silverstripe-groupable-gridfield",
+    "authors": [
+        {
+            "name": "Restruct web & apps",
+            "email": "dev@restruct.nl"
+        }
+    ],
+    "require": {
+        "silverstripe-australia/gridfieldextensions": "~1.0"
+    },
+    "suggest": {
+        "micschk/silverstripe-block_enhancements": "Enhancements to the Silverstripe Blocks module"
+    },
+    "extra": {
+        "installer-name": "gridfield_groupable"
+    }
+}
