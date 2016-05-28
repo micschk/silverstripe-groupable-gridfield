@@ -65,11 +65,14 @@
                 // and put blocks in order below boundaries
                 jQuery.fn.reverseOrder = [].reverse; // small reverse plugin
                 self.getGridField().getItems().reverseOrder().each(function(){
-                    var myGroup = $('.col-'+ self.getItemGroupField() +' select',this).val() || 'none';
+                    //var myGroup = $('.col-'+ self.getItemGroupField() +' select',this).val() || 'none';
+                    var myGroup = $('.col-reorder',this).data('groupable-group') || 'none';
                     $(this).insertAfter( groupBoundElements[myGroup] );
                 });
-                // hide the blockarea column
-                $('.col-action_SetOrderBlockArea, .col-BlockArea').hide();
+                
+                // hide the group column (if present)
+                //$('.col-action_SetOrderBlockArea, .col-BlockArea').hide();
+                $('.col-'+self.getItemGroupField()).hide();
 
                 // get ID order again to check if we need to update now we've sorted primarily by area
                 var sortedIdOrder = self.getGridField().getItems()

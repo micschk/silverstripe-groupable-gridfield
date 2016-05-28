@@ -4,6 +4,7 @@
 class GridFieldGroupable
     extends RequestHandler
     implements GridField_HTMLProvider,
+        GridField_ColumnProvider,
         GridField_URLHandler
 {
 
@@ -181,7 +182,7 @@ class GridFieldGroupable
             // *_versions table is updated. This ensures re-ordering works
             // similar to the SiteTree where you change the position, and then
             // you go into the record and publish it.
-            $groupField = $this->getGroupField();
+            $groupField = $this->getOption('groupField');
             $record = $class::get()->byID($item_id);
             $record->$groupField = $group_key;
             $record->write();
@@ -255,6 +256,73 @@ class GridFieldGroupable
         }
 
         return "\"ID\" $value";
+    }
+
+
+    /**
+     * Methods to implement from GridField_ColumnProvider
+     * ('Add a new column to the table display body, or modify existing columns')
+     * Used once per record/row.
+     *
+     * @package forms
+     * @subpackage fields-gridfield
+     */
+
+    /**
+     * Modify the list of columns displayed in the table.
+     *
+     * @see {@link GridFieldDataColumns->getDisplayFields()}
+     * @see {@link GridFieldDataColumns}.
+     *
+     * @param GridField $gridField
+     * @param arary $columns List of columns
+     * @param array - List reference of all column names.
+     */
+    public function augmentColumns($gridField, &$columns){ }
+
+    /**
+     * Names of all columns which are affected by this component.
+     *
+     * @param GridField $gridField
+     * @return array
+     */
+    public function getColumnsHandled($gridField){
+        return array('Reorder');
+    }
+
+    /**
+     * HTML for the column, content of the <td> element.
+     *
+     * @param  GridField $gridField
+     * @param  DataObject $record - Record displayed in this row
+     * @param  string $columnName
+     * @return string - HTML for the column. Return NULL to skip.
+     */
+    public function getColumnContent($gridField, $record, $columnName){ }
+
+    /**
+     * Attributes for the element containing the content returned by {@link getColumnContent()}.
+     *
+     * @param  GridField $gridField
+     * @param  DataObject $record displayed in this row
+     * @param  string $columnName
+     * @return array
+     */
+    public function getColumnAttributes($gridField, $record, $columnName){
+        $groupField = $this->getOption('groupField');
+        return array('data-groupable-group'=>$record->$groupField);
+    }
+
+    /**
+     * Additional metadata about the column which can be used by other components,
+     * e.g. to set a title for a search column header.
+     *
+     * @param GridField $gridField
+     * @param string $columnName
+     * @return array - Map of arbitrary metadata identifiers to their values.
+     */
+    public function getColumnMetadata($gridField, $columnName){
+        return array();
     }
 
 }
