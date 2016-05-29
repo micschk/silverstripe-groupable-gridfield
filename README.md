@@ -41,7 +41,7 @@ $gfConfig->addComponent(new GridFieldGroupable(
 
 ### Screenshots
 
-![image](https://cloud.githubusercontent.com/assets/1005986/13769387/69ccd7d2-ea7f-11e5-833e-24b1102f0bc3.png)
+![image](https://cloud.githubusercontent.com/assets/1005986/15631519/677fd806-256e-11e6-83a3-d4c072211d1b.png)
 Example application (Block Enhancements module): assign content blocks to block-areas by drag & drop
 
 ## Thank you
