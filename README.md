@@ -6,8 +6,8 @@ It bolts on top of- and depends on GridFieldOrderableRows for the drag & drop so
 ### Screenshot
 
 ![image](https://cloud.githubusercontent.com/assets/1005986/15631519/677fd806-256e-11e6-83a3-d4c072211d1b.png)
+
 Example application (Block Enhancements module): assign content blocks to block-areas by drag & drop
-```
 
 ## Installation
 
@@ -43,6 +43,7 @@ $gfConfig->addComponent(new GridFieldGroupable(
             'AfterContent' => 'Before Content',
         )
     ));
+```
 
 ## Thank you
 
