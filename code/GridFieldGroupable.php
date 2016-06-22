@@ -149,6 +149,7 @@ class GridFieldGroupable
 		$group_key   = $request->postVar('groupable_group_key');
         if($group_key=='none') $group_key = '';
 		$item = $list->byID($item_id);
+        $groupField = $this->getOption('groupField');
 
 		// Update item with correct Group assigned (custom query required to write m_m_extraField)
 //        DB::query(sprintf(
@@ -159,33 +160,13 @@ class GridFieldGroupable
 //            $item_id
 //        ));
 
-        // (adapted from GridFieldOrderableRows::handleReorder)
-        // If not a ManyManyList and using versioning, detect it.
-        $isVersioned = false;
-        $class = $list->dataClass();
-        if ($class == $this->getGroupTable($list)) {
-            $isVersioned = $class::has_extension('Versioned');
-        }
-
-        // Loop through each item, and update the sort values which do not
-        // match to order the objects.
-        if (!$isVersioned) {
-            DB::query(sprintf(
-                'UPDATE "%s" SET "%s" = %d WHERE %s',
-                $this->getGroupTable($list),
-                $this->getOption('groupField'),
-                $group_key,
-                $this->getGroupTableClauseForIds($list, $item_id)
-            ));
+        if ($list instanceof ManyManyList && array_key_exists($groupField, $list->getExtraFields())) {
+            // update many_many_extrafields (MMList->add() with a new item adds a row, with existing item modifies a row)
+            $list->add($item, array($groupField => $group_key));
         } else {
-            // For versioned objects, modify them with the ORM so that the
-            // *_versions table is updated. This ensures re-ordering works
-            // similar to the SiteTree where you change the position, and then
-            // you go into the record and publish it.
-            $groupField = $this->getOption('groupField');
-            $record = $class::get()->byID($item_id);
-            $record->$groupField = $group_key;
-            $record->write();
+            // or simply update the field on the item itself
+            $item->$groupField = $group_key;
+            $item->write();
         }
 
         $this->extend('onAfterAssignGroupItems', $list);
