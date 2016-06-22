@@ -53,10 +53,14 @@
                 $.each(groups, function(groupKey, groupName) {
                     //console.log(index); console.log(value);
                     //var colSpan = $('tr',self).first().find('td').length;
-                    var colSpan = self.siblings('thead').find('tr.ss-gridfield-title-header th').length;
+                    //var colSpan = self.siblings('thead').find('tr.ss-gridfield-title-header th, tr.sortable-header th').length;
+                    var th_tds_list = self.siblings('thead').find('tr').map(function() {
+                        return $(this).find('th').length;
+                    }).get();
+                    
                     // ▾ / ▼ / ↓
                     var boundEl = $('<tr class="groupable-bound"><td>↓</td>'
-                        +'<td colspan="'+(colSpan-1)+'">'+ self.getGroupRole() +': <strong>'
+                        +'<td colspan="'+ (Math.max.apply(null, th_tds_list)-1 ) +'">'+ self.getGroupRole() +': <strong>'
                         +(groupName || self.getNoGroupName())+'</strong></td></tr>');
                     boundEl.data('groupKey', groupKey);
                     groupBoundElements[groupKey] = boundEl;
@@ -70,9 +74,8 @@
                     $(this).insertAfter( groupBoundElements[myGroup] );
                 });
                 
-                // hide the group column (if present)
-                //$('.col-action_SetOrderBlockArea, .col-BlockArea').hide();
-                $('.col-'+self.getItemGroupField()).hide();
+                // hide the group columns (if present)
+                $('.col-action_SetOrder'+self.getItemGroupField()+', .col-'+self.getItemGroupField()).hide();
 
                 // get ID order again to check if we need to update now we've sorted primarily by area
                 var sortedIdOrder = self.getGridField().getItems()
