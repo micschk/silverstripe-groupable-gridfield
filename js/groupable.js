@@ -119,6 +119,33 @@
                     value: group
                 });
 
+                // Get lowest sort value in this list (respects pagination)
+                var minSort = null;
+                grid.getItems().each(function() {
+                    // get sort field
+                    var sortField = $(this).find('.ss-orderable-hidden-sort');
+                    if (sortField.length) {
+                        var thisSort = sortField.val();
+                        if (minSort === null && thisSort > 0) {
+                            minSort = thisSort;
+                        } else if (thisSort > 0) {
+                            minSort = Math.min(minSort, thisSort);
+                        }
+                    }
+                });
+                minSort = Math.max(1, minSort);
+
+                // With the min sort found, loop through all records and re-arrange
+                var sort = minSort;
+                grid.getItems().each(function() {
+                    // get sort field
+                    var sortField = $(this).find('.ss-orderable-hidden-sort');
+                    if (sortField.length) {
+                        sortField.val(sort);
+                        sort++;
+                    }
+                });
+
                 // area-assignment forwards the request to gridfieldextensions::reorder server side
                 grid.reload({
                     //url: grid.data("url-reorder"),
