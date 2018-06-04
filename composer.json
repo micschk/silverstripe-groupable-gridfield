@@ -16,7 +16,7 @@
     ],
     "license": "MIT",
     "require": {
-        "symbiote/silverstripe-gridfieldextensions": "~1.0"
+        "symbiote/silverstripe-gridfieldextensions": "^2.1"
     },
     "suggest": {
         "micschk/silverstripe-block_enhancements": "Enhancements to the Silverstripe Blocks module"
