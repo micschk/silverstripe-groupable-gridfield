@@ -1,4 +1,6 @@
 # SilverStripe GridField Groupable
+[![Build Status](https://travis-ci.org/micschk/silverstripe-groupable-gridfield.svg?branch=master)](https://travis-ci.org/micschk/silverstripe-groupable-gridfield)
+[![codecov.io](https://codecov.io/github/micschk/silverstripe-groupable-gridfield/coverage.svg?branch=master)](https://codecov.io/github/micschk/silverstripe-groupable-gridfield?branch=master)
 
 This module allows drag & drop grouping of items in a GridField. 
 It bolts on top of- and depends on GridFieldOrderableRows for the drag & drop sorting functionality
@@ -17,7 +19,7 @@ Example application (Block Enhancements module): assign content blocks to block-
 
 ### Requirements (all pulled in by composer)
 
-* SilverStripe CMS ~3.1
+* SilverStripe Framework ~4.0
 * SilverStripe GridFieldExtensions
 
 ## Usage:
