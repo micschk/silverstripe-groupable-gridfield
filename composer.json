@@ -1,7 +1,7 @@
 {
     "name": "micschk/silverstripe-groupable-gridfield",
     "description": "This module allows drag & drop grouping of items in a GridField",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "keywords": [
         "silverstripe",
         "gridfield",
@@ -16,12 +16,31 @@
     ],
     "license": "MIT",
     "require": {
-        "symbiote/silverstripe-gridfieldextensions": "^2.1"
+        "silverstripe/vendor-plugin": "^1.0",
+        "symbiote/silverstripe-gridfieldextensions": "^3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "squizlabs/php_codesniffer": "*"
     },
     "suggest": {
         "micschk/silverstripe-block_enhancements": "Enhancements to the Silverstripe Blocks module"
     },
+    "autoload": {
+        "psr-4": {
+            "micschk\\GroupableGridfield\\": "src/",
+            "micschk\\GroupableGridfield\\Test\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
-        "installer-name": "gridfield_groupable"
+        "expose": [
+            "css",
+            "js"
+        ],
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
     }
 }
